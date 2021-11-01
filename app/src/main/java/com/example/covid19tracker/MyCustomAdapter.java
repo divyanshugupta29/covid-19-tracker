@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MyCustomAdapter extends ArrayAdapter<CountryModel> {
     private Context context;
-    private List<CountryModel> countryModelList;
+    private  List<CountryModel> countryModelList;
     private  List<CountryModel> countryModelListFiltered;
     public MyCustomAdapter( Context context,List<CountryModel> countryModelList) {
         super(context, R.layout.list_custom_item,countryModelList);
@@ -40,16 +40,19 @@ public class MyCustomAdapter extends ArrayAdapter<CountryModel> {
         return view;
     }
 
+    @Override
+    @Nullable
+    public int getCount() {
+        return countryModelListFiltered.size();
+    }
+
     @Nullable
     @Override
     public CountryModel getItem(int position) {
         return countryModelListFiltered.get(position);
     }
 
-    @Override
-    public int getCount() {
-        return countryModelListFiltered.size();
-    }
+
 
     @Override
     public long getItemId(int position) {

@@ -3,12 +3,14 @@ package com.example.covid19tracker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -34,7 +36,7 @@ public class AffectedCountries extends AppCompatActivity {
     ListView listView;
     SimpleArcLoader simpleArcLoader;
 
-    public List<CountryModel> countryModelList = new ArrayList<CountryModel>();
+    public static List<CountryModel> countryModelList = new ArrayList<CountryModel>();
     CountryModel countryModel;
     MyCustomAdapter myCustomAdapter;
 
@@ -51,6 +53,13 @@ public class AffectedCountries extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         
         fetchData();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                startActivity(new Intent(AffectedCountries.this,DetailActivity.class).putExtra("position",i));
+            }
+        });
 
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
